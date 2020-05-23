@@ -1,48 +1,54 @@
 import flask
 import lib
+import config
 
-app = flask.Flask('copy-writer-server')
+app = flask.Flask(config.server_name)
 texts = lib.TextStorage()
 
 
-@app.route('/get_theme_list', methods=['GET'])
+@app.route(config.get_theme_list_path, methods=[config.get_method])
 def get_theme_list():
     return str(texts.get_theme_list())
 
-@app.route('/get_demos', methods=['GET'])
+
+@app.route(config.get_demos_path, methods=[config.get_method])
 def get_demos():
-    theme_name = flask.request.args['theme_name']
+    theme_name = flask.request.args[config.theme_name]
     return str(texts.get_demos(theme_name))
 
-@app.route('/get_full_text', methods=['GET'])
+
+@app.route(config.get_full_text_path, methods=[config.get_method])
 def get_full_text():
-    theme_name = flask.request.args['theme_name']
-    id = flask.request.args['id'] 
+    theme_name = flask.request.args[config.theme_name]
+    id = flask.request.args[config.id] 
     return str(texts.get_full_text(theme_name, id))
 
-@app.route('/get_money_for_text', methods=['GET'])
+
+@app.route(config.get_money_for_text_path, methods=[config.get_method])
 def get_money_for_text():  
-    theme_name = flask.request.args['theme_name']
-    id = flask.request.args['id'] 
+    theme_name = flask.request.args[config.theme_name]
+    id = flask.request.args[config.id] 
     return str(texts.get_money_for_text(theme_name, id))
 
-@app.route('/post_new_theme', methods=['POST'])
+
+@app.route(config.post_new_theme_path, methods=[config.post_method])
 def post_new_theme():
-    theme_name = flask.request.args['theme_name']
+    theme_name = flask.request.args[config.theme_name]
     return str(texts.post_new_theme(theme_name))
 
-@app.route('/post_text', methods=['POST'])
+
+@app.route(config.post_text_path, methods=[config.post_method])
 def post_text():
-    theme_name = flask.request.args['theme_name']
-    demo = flask.request.args['demo']
-    text = flask.request.args['text']
+    theme_name = flask.request.args[config.theme_name]
+    demo = flask.request.args[config.demo]
+    text = flask.request.args[config.text]
     return str(texts.post_text(theme_name, demo, text))
 
 
 def main():
-    app.run('::', port=8000)
+    app.run('::', port=config.default_port)
 
 
-if __name__ == '__main__':
+if __name__ == config.main:
     main()
 
