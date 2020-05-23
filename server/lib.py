@@ -64,7 +64,7 @@ class TextStorage:
         if len(self.themes[theme_name].texts) == 0:
             return
         for text in self.themes[theme_name].texts:
-            demos.append([text.demo, config.print_id_f(text.id)])
+            demos.append([text.demo, config.id_f(text.id)])
         return list(demos)
     
     def get_full_text(self, theme_name, id):

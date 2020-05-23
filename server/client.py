@@ -6,10 +6,10 @@ import config
 def get_theme_list(main_args):
     theme_list = requests.get(config.get_path(main_args, config.get_theme_list_path)).text
     if theme_list == config.NONE:
-        print(config.print_empty_list)
+        print(config.empty_list)
         common.dialog(post_new_theme, main_args, config.ask_add_text)
     else:
-        print(config.print_theme_list, theme_list)
+        print(config.here_theme_list, theme_list)
 
 
 def get_demos(main_args):
@@ -19,10 +19,10 @@ def get_demos(main_args):
     if response == config.unknown_theme:
         common.dialog(get_demos, main_args, config.ask_another_theme_f(response))
     elif response == config.NONE:
-        print(config.print_no_texts_f(theme_name))
+        print(config.no_texts_f(theme_name))
         common.dialog(get_demos, main_args)
     else:
-        print(config.print_here_demos_f(theme_name), response)
+        print(config.here_demos_f(theme_name), response)
 
 
 def get_full_text(main_args):
@@ -33,7 +33,7 @@ def get_full_text(main_args):
     if response == config.unknown_theme or response == config.no_id:
         common.dialog(get_full_text, main_args, config.ask_another_text_f(response))
     else:
-        print(config.print_here_text)
+        print(config.here_text)
         print(response)
 
 
@@ -42,7 +42,7 @@ def post_new_theme(main_args):
     response = requests.post(config.get_path(main_args, config.post_new_theme_path), 
                                                     params=dict(theme_name=theme_name)).text
     if response == config.OK:
-        print(config.print_new_theme)
+        print(config.here_new_theme)
     else:
         common.dialog(post_new_theme, main_args, config.ask_new_theme_problem_f(response))
 
@@ -64,11 +64,11 @@ def main():
             elif cmd == config.exit:
                 common.my_exit()
             else:
-                print(config.print_unknown_cmd_f(cmd))
+                print(config.unknown_cmd_f(cmd))
         except KeyboardInterrupt:
             common.my_exit()
 
 
-if __name__ == config.main:
+if __name__ == '__main__':
     main()
 

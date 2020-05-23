@@ -49,6 +49,6 @@ def main():
     app.run('::', port=config.default_port)
 
 
-if __name__ == config.main:
+if __name__ == '__main__':
     main()
 

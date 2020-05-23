@@ -4,8 +4,8 @@ import config
 
 def create_main_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument(config._host, default=config.default_hast)
-    parser.add_argument(config._post, default=config.default_port, type=int)
+    parser.add_argument('--host', default=config.default_hast)
+    parser.add_argument('--port', default=config.default_port, type=int)
 
     return parser.parse_args()
 
@@ -16,9 +16,9 @@ def my_exit():
         print(config.bye)
         exit()
     elif user_answer == config.no:
-        print(config.print_continue)
+        print(config.lets_continue)
     else:
-        print(config.print_inappropriate_continue)
+        print(config.inappropriate_continue)
 
 
 def dialog(func, func_args, question = config.ask_try_again):
@@ -26,9 +26,9 @@ def dialog(func, func_args, question = config.ask_try_again):
     if user_answer == config.yes:
         func(func_args)
     elif user_answer == config.no:
-        print(config.print_continue)
+        print(config.lets_continue)
     else:
-        print(config.print_inappropriate_continue)
+        print(config.inappropriate_continue)
 
 
 def get_argument(arg_type):
@@ -39,7 +39,7 @@ def get_argument(arg_type):
                 arg = int(input(config.ask[arg_type]))
                 success = True
             except ValueError:
-                print(config.print_int_warning)
+                print(config.int_warning)
     else:
         arg = input(config.ask[arg_type])
         while arg[0] == config.sys_symbol:
